@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentence builder · Hastavāṇī</title>
+    <meta name="description" content="Sign a full ISL sentence to your webcam and see it recognized, chosen from a catalog of everyday sentences." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!--HEADER-->
+
+    <main class="mx-auto max-w-6xl px-5 pb-8 pt-10">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="eyebrow">Sentence builder · <span id="lang-short">ISL</span></p>
+          <h1 class="mt-2 text-4xl font-extrabold md:text-5xl">Sign a whole sentence.</h1>
+          <p class="mt-3 max-w-xl text-ink/70">
+            Record yourself signing one sentence, using both hands, at a natural pace. The recognizer picks
+            the closest match from a catalog of <strong id="catalog-count">101</strong> everyday <span id="lang-name">ISL</span> sentences.
+          </p>
+        </div>
+
+        <div class="inline-flex shrink-0 rounded-full border border-ink/15 bg-surface p-1 shadow-sm" role="tablist" aria-label="Sign language">
+          <button id="lang-isl" class="mode-btn active" role="tab" aria-selected="true">ISL · Indian</button>
+          <button id="lang-asl" class="mode-btn" role="tab" aria-selected="false">ASL · American</button>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-start gap-3 rounded-2xl border border-accent/25 bg-accent-soft px-4 py-3 text-sm text-ink/80">
+        <span class="mt-0.5 text-lg" aria-hidden="true">ℹ️</span>
+        <p>
+          This is <strong>not</strong> open-ended translation. It recognizes whichever of its known catalog
+          sentences your signing best matches — see the full list below.
+          <span id="lang-note-isl">Built from the
+          <a class="font-semibold underline" href="https://data.mendeley.com/datasets/kcmpdxky7p/1" target="_blank" rel="noopener">ISL-CSLTR</a>
+          dataset (two native signers, ~5 recordings per sentence), so accuracy on a new signer is a genuine but
+          modest estimate</span><span id="lang-note-asl" class="hidden">ASL references are built by chaining real word clips from the
+          <a class="font-semibold underline" href="https://dxli94.github.io/WLASL/" target="_blank" rel="noopener">WLASL</a>
+          dataset in ASL word order (no public dataset of whole ASL sentences recorded several times exists), so this is an
+          early experiment — sign each word clearly</span> — see <a class="font-semibold underline" href="/how-it-works.html#sentences">how it works</a>.
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+        <!-- Camera + recording controls -->
+        <section aria-label="Camera">
+          <div class="overflow-hidden rounded-[2rem] border border-ink/10 bg-night p-2 shadow-xl shadow-black/10">
+            <div class="video-wrap rounded-[1.5rem]">
+              <video id="webcam" autoplay playsinline muted></video>
+              <canvas id="overlay"></canvas>
+              <div id="status-overlay" class="status-overlay">
+                <p id="status-message">Starting camera…</p>
+              </div>
+              <div id="rec-badge" class="absolute left-4 top-4 hidden items-center gap-2 rounded-full bg-red-600/90 px-3 py-1.5 text-xs font-bold text-white">
+                <span class="size-2 animate-pulse rounded-full bg-white"></span>
+                <span id="rec-timer">0.0s</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 rounded-3xl border border-ink/10 bg-surface p-5 shadow-sm">
+            <div class="h-2 overflow-hidden rounded-full bg-ink/10"><div id="rec-progress" class="h-full w-0 rounded-full bg-brand transition-all"></div></div>
+            <p id="rec-hint" class="mt-3 text-sm text-ink/70">Sit back so your head, shoulders and both hands are in view, then press record and sign your sentence at a natural pace.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <button id="btn-record" class="btn-accent" disabled>● Record sentence</button>
+              <button id="btn-stop" class="word-btn hidden">■ Stop</button>
+              <button id="btn-retry" class="word-btn hidden">↻ Try again</button>
+              <button id="sent-speech" class="word-btn ml-auto">🔊 Voice on</button>
+            </div>
+          </div>
+
+          <ul class="mt-4 grid gap-3 text-sm text-ink/70 sm:grid-cols-2">
+            <li class="flex gap-3 rounded-2xl bg-sand p-4"><span class="text-lg" aria-hidden="true">🖐️</span><span><strong class="block text-ink">Upper body in frame</strong>Keep your head, shoulders and both hands visible -- where you sign (face, chest) matters.</span></li>
+            <li class="flex gap-3 rounded-2xl bg-sand p-4"><span class="text-lg" aria-hidden="true">⏱️</span><span><strong class="block text-ink">Natural pace</strong>Sign it as one continuous phrase, not word by word.</span></li>
+          </ul>
+        </section>
+
+        <!-- Result -->
+        <section aria-label="Result" class="space-y-5">
+          <div id="result-card" class="card min-h-[220px]">
+            <p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Best match</p>
+            <p id="result-sentence" class="mt-2 font-display text-3xl font-extrabold leading-tight">Record a sentence to begin</p>
+            <p id="result-gloss" class="mt-1 text-sm text-ink/50"></p>
+            <div class="mt-5 flex items-center gap-3">
+              <div class="confidence-bar-track"><div class="confidence-bar-fill" id="result-fill"></div></div>
+              <span id="result-pct" class="w-12 text-right text-sm font-semibold tabular-nums">–</span>
+            </div>
+            <div id="result-others" class="mt-4 space-y-2"></div>
+
+            <div id="teach" class="mt-5 hidden border-t border-ink/10 pt-4">
+              <p class="text-sm font-bold">Teach it your signing</p>
+              <p class="mt-1 text-xs text-ink/50">
+                Everyone signs a little differently. Save this recording under the right sentence and it will
+                recognise <em>your</em> version much better next time. Stored only in this browser.
+              </p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <button id="teach-correct" class="word-btn">✓ Correct — remember it</button>
+              </div>
+              <div class="mt-2 flex flex-wrap items-center gap-2">
+                <label class="min-w-0 flex-1">
+                  <span class="sr-only">Correct sentence</span>
+                  <select id="teach-select" class="w-full rounded-full border border-ink/15 bg-white px-4 py-2 text-sm text-ink"></select>
+                </label>
+                <button id="teach-save" class="word-btn">Save as this</button>
+              </div>
+              <p id="teach-status" class="mt-2 text-xs text-ink/60" aria-live="polite"></p>
+            </div>
+            <p class="mt-4 text-xs text-ink/50">
+              <span id="teach-count">0</span> of your own recordings saved for this language
+              <button id="teach-clear" class="ml-1 underline hover:text-ink">Clear</button>
+            </p>
+          </div>
+
+          <details class="card group" open>
+            <summary class="flex cursor-pointer list-none items-center justify-between font-bold">
+              Browse the known sentences
+              <span class="text-brand transition group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-2 text-sm text-ink/60">Not sure how a sentence is signed? Click it to watch a short reference clip.</p>
+            <label class="relative mt-4 block">
+              <span class="sr-only">Search sentences</span>
+              <input id="catalog-search" type="text" placeholder="Search sentences…" autocomplete="off"
+                     class="w-full rounded-full border border-ink/15 bg-white px-5 py-2.5 text-sm placeholder:text-ink/40 focus:border-brand focus:outline-none" />
+            </label>
+            <ol id="catalog-list" class="mt-4 max-h-96 space-y-1 overflow-y-auto pr-1 text-sm"></ol>
+          </details>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="clip-dialog" class="m-auto w-[min(92vw,26rem)] rounded-[2rem] border-0 bg-paper p-0 shadow-2xl backdrop:bg-ink/60 backdrop:backdrop-blur-sm">
+      <div class="relative aspect-[9/16] max-h-[70vh] w-full overflow-hidden rounded-t-[2rem] bg-night">
+        <video id="clip-video" class="size-full object-contain" playsinline muted loop controls></video>
+        <button id="clip-close" class="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-black/50 text-white hover:bg-black/70" aria-label="Close">
+          <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="p-6">
+        <p id="clip-sentence" class="font-display text-xl font-bold leading-snug"></p>
+        <p id="clip-gloss" class="mt-1 text-sm text-ink/50"></p>
+        <p id="clip-source" class="mt-3 text-xs text-ink/40">Reference clip from the ISL-CSLTR training set, not your camera.</p>
+        <button id="clip-practice" class="btn-primary mt-5 w-full">Practise this sentence</button>
+      </div>
+    </dialog>
+
+    <!--FOOTER-->
+    <script type="module" src="/src/sentence.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+# Python conversion/training environment (recreate with the commands in README.md)
+.venv_tfjs/
+__pycache__/
+*.pyc
+
+# Raw dataset downloads + extracted per-class images (large; re-downloadable, see README.md)
+isl_data/
+asl_data/
+
+# Intermediate model artifacts (only the final .keras/.json in model_assets/ and the
+# converted webapp/public/tfjs_model_*/ directories are needed to run the app)
+model_assets/*.h5
+model_assets/hand_landmarker.task
+model_assets/parity_*.npy
+model_assets/parity_*.json
+tfjs_model_asl_new/
+
+# Training logs
+*.log
+
+# Node
+webapp/node_modules/
+webapp/dist/
+
+# Added before publishing: never commit secrets or local-only files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+kaggle.json
+
+# Large raw datasets and scratch output (kept locally, not in the repo)
+asl_sentences_data/
+isl_sentences_data/
+crossval_data/
+numbers_data/
+tmp/
+asl2_checkpoint.keras
+model_assets/*.npz
+model_assets/sentences/*.npz
+model_assets/sentences/checkpoint.keras
+
+# Windows / editor clutter
+*.lnk
+Thumbs.db
+desktop.ini
+.hastavani/

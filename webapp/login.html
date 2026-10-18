@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in · Hastavāṇī</title>
+    <meta name="description" content="Sign in to Hastavāṇī to use the translator, sentence builder and math page, and keep your history." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!--HEADER-->
+
+    <main class="mx-auto grid min-h-[calc(100vh-4rem)] max-w-6xl items-center gap-10 px-5 py-12 lg:grid-cols-2">
+      <section class="hidden lg:block" aria-hidden="true">
+        <p class="eyebrow">Welcome back</p>
+        <h1 class="mt-3 text-5xl font-extrabold leading-tight">Sign in to keep<br />signing.</h1>
+        <p class="mt-4 max-w-md text-ink/70">
+          Your translator, sentence builder and math practice — with a history of everything you've signed,
+          kept in this browser.
+        </p>
+        <ul class="mt-8 space-y-3 text-sm text-ink/70">
+          <li class="flex items-center gap-3"><span class="grid size-8 place-items-center rounded-full bg-brand-soft text-brand">✓</span>Live ASL &amp; ISL fingerspelling</li>
+          <li class="flex items-center gap-3"><span class="grid size-8 place-items-center rounded-full bg-brand-soft text-brand">✓</span>Whole-sentence recognition that learns your signing</li>
+          <li class="flex items-center gap-3"><span class="grid size-8 place-items-center rounded-full bg-brand-soft text-brand">✓</span>History you can review and clear any time</li>
+        </ul>
+      </section>
+
+      <section class="mx-auto w-full max-w-md">
+        <div class="card !p-8 shadow-xl shadow-black/5">
+          <div class="flex items-center gap-3">
+            <span class="grid place-items-center rounded-xl dark:bg-white dark:p-1"><img src="/logo.png" alt="" class="size-11 dark:size-9" width="44" height="44" /></span>
+            <div>
+              <h2 class="text-2xl font-extrabold">Sign in</h2>
+              <p class="text-sm text-ink/60">to continue to Hastavāṇī</p>
+            </div>
+          </div>
+
+          <form id="login-form" class="mt-8 space-y-5" novalidate>
+            <div>
+              <label for="username" class="text-sm font-semibold">Username</label>
+              <input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required
+                     class="mt-1.5 w-full rounded-xl border border-ink/15 bg-paper px-4 py-3 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none" placeholder="Your username" />
+            </div>
+            <div>
+              <label for="password" class="text-sm font-semibold">Password</label>
+              <div class="relative mt-1.5">
+                <input id="password" name="password" type="password" autocomplete="current-password" required
+                       class="w-full rounded-xl border border-ink/15 bg-paper px-4 py-3 pr-20 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none" placeholder="Your password" />
+                <button id="toggle-pw" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg px-3 py-1.5 text-xs font-semibold text-ink/60 hover:bg-ink/5" aria-label="Show password" aria-pressed="false">Show</button>
+              </div>
+            </div>
+            <label class="flex cursor-pointer items-center gap-2.5 text-sm text-ink/70">
+              <input id="remember" type="checkbox" class="size-4 accent-brand" checked />
+              Keep me signed in on this device
+            </label>
+
+            <p id="login-error" class="hidden rounded-xl bg-accent-soft px-4 py-3 text-sm font-medium text-accent" role="alert"></p>
+
+            <button id="login-submit" type="submit" class="btn-primary w-full !py-3 !text-base">Sign in</button>
+          </form>
+
+          <p class="mt-6 text-center text-xs text-ink/50">
+            Demo site: accounts are checked in your browser, not on a server.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!--FOOTER-->
+    <script type="module" src="/src/login.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

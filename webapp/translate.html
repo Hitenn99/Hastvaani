@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Translator · Hastavāṇī</title>
+    <meta name="description" content="Live ASL and ISL fingerspelling translator using your webcam. Everything runs in your browser." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!--HEADER-->
+
+    <main class="mx-auto max-w-6xl px-5 pb-8 pt-10">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="eyebrow">Live translator</p>
+          <h1 class="mt-2 text-4xl font-extrabold md:text-5xl">Sign it. See it. Hear it.</h1>
+          <p class="mt-3 max-w-xl text-ink/70">
+            Allow camera access, choose your sign language, and hold a sign steady. Letters lock in
+            automatically and build words below.
+          </p>
+        </div>
+
+        <div class="inline-flex shrink-0 rounded-full border border-ink/15 bg-surface p-1 shadow-sm" role="tablist" aria-label="Sign language">
+          <button id="mode-asl" class="mode-btn active" role="tab" aria-selected="true">ASL · American</button>
+          <button id="mode-isl" class="mode-btn" role="tab" aria-selected="false">ISL · Indian</button>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
+        <!-- Camera -->
+        <section aria-label="Camera">
+          <div class="overflow-hidden rounded-[2rem] border border-ink/10 bg-night p-2 shadow-xl shadow-black/10">
+            <div class="video-wrap rounded-[1.5rem]">
+              <video id="webcam" autoplay playsinline muted></video>
+              <canvas id="overlay"></canvas>
+              <div id="status-overlay" class="status-overlay hidden">
+                <p id="status-message"></p>
+              </div>
+            </div>
+          </div>
+
+          <ul class="mt-5 grid gap-3 text-sm text-ink/70 sm:grid-cols-3">
+            <li class="flex gap-3 rounded-2xl bg-sand p-4"><span class="text-lg" aria-hidden="true">☀️</span><span><strong class="block text-ink">Even light</strong>Face a window or lamp, not the other way round.</span></li>
+            <li class="flex gap-3 rounded-2xl bg-sand p-4"><span class="text-lg" aria-hidden="true">🖐️</span><span><strong class="block text-ink">Hand in frame</strong>Keep the whole hand visible. ISL needs both hands.</span></li>
+            <li class="flex gap-3 rounded-2xl bg-sand p-4"><span class="text-lg" aria-hidden="true">⏱️</span><span><strong class="block text-ink">Hold steady</strong>Pause for about a second so the letter can lock in.</span></li>
+          </ul>
+        </section>
+
+        <!-- Output -->
+        <section class="flex flex-col gap-5" aria-label="Recognition output">
+          <div class="card">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Detected letter</p>
+                <div id="letter-display" class="mt-1 font-display text-8xl font-extrabold leading-none text-brand" aria-live="polite">–</div>
+              </div>
+              <button id="mute-btn" class="word-btn shrink-0">🔊 Speech on</button>
+            </div>
+            <div class="mt-6 flex items-center gap-3">
+              <span class="text-xs font-semibold uppercase tracking-widest text-ink/50">Confidence</span>
+              <div class="confidence-bar-track"><div class="confidence-bar-fill" id="confidence-fill"></div></div>
+              <span id="confidence-text" class="w-10 text-right text-sm font-semibold tabular-nums">0%</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-bold">Word builder</h2>
+              <button id="btn-copy" class="text-sm font-semibold text-brand hover:underline">Copy text</button>
+            </div>
+            <div id="word-output" class="mt-3 min-h-16 break-all rounded-2xl bg-sand px-4 py-3 font-display text-3xl font-bold tracking-widest" aria-live="polite">&nbsp;</div>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              <button id="btn-space" class="word-btn">␣ Space</button>
+              <button id="btn-backspace" class="word-btn">⌫ Backspace</button>
+              <button id="btn-clear" class="word-btn">🗑 Clear</button>
+              <button id="btn-speak-word" class="word-btn">🔈 Speak word</button>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm text-brand-dark">
+            <span class="mt-1 size-2 shrink-0 rounded-full bg-brand"></span>
+            <p id="model-info">Loading model…</p>
+          </div>
+          <p class="text-xs text-ink/50">
+            Not sure how a letter looks? Open the <a class="font-semibold underline" href="/learn.html">alphabet guide</a>.
+            Video never leaves your device.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <!--FOOTER-->
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

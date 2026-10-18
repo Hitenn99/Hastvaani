@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hastavāṇī · Sign language, read by your webcam</title>
+    <meta name="description" content="Hastavāṇī reads American and Indian Sign Language from your webcam: letters, numbers and whole sentences, spoken aloud. Private, free, runs in your browser." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!--HEADER-->
+
+    <main>
+      <!-- Hero -->
+      <section class="relative overflow-hidden">
+        <div class="pointer-events-none absolute -right-40 -top-40 size-[34rem] rounded-full bg-brand-soft blur-3xl" aria-hidden="true"></div>
+        <div class="pointer-events-none absolute -bottom-40 -left-32 size-[26rem] rounded-full bg-accent-soft blur-3xl" aria-hidden="true"></div>
+
+        <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-14 md:pt-20 lg:grid-cols-2">
+          <div>
+            <p class="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-surface px-3 py-1 text-xs font-semibold text-ink/70">
+              <span class="size-2 rounded-full bg-brand"></span> <span id="hello-user">ASL &amp; ISL · letters · numbers · sentences</span>
+            </p>
+            <h1 class="mt-6 text-5xl font-extrabold leading-[1.02] md:text-7xl">
+              Signs in.<br />
+              <span class="text-brand">Words out.</span>
+            </h1>
+            <p class="mt-6 max-w-lg text-lg leading-relaxed text-ink/70">
+              Hastavāṇī — Sanskrit for <em>“the voice of the hand”</em> — watches your hands through the webcam and
+              turns American and Indian Sign Language into text and speech. Spell a name, sign a sum, or sign a whole
+              sentence. It all runs inside your browser, and no video ever leaves your device.
+            </p>
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a href="/translate.html" class="btn-accent">Open the translator
+                <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+              </a>
+              <a href="/sentence.html" class="btn-ghost">Sign a sentence</a>
+            </div>
+            <dl class="mt-10 grid max-w-lg grid-cols-2 gap-4 border-t border-ink/10 pt-6 sm:grid-cols-4">
+              <div><dt class="text-xs uppercase tracking-widest text-ink/50">Languages</dt><dd class="mt-1 font-display text-3xl font-bold">2</dd></div>
+              <div><dt class="text-xs uppercase tracking-widest text-ink/50">Letters</dt><dd class="mt-1 font-display text-3xl font-bold">26</dd></div>
+              <div><dt class="text-xs uppercase tracking-widest text-ink/50">Sentences</dt><dd class="mt-1 font-display text-3xl font-bold">202</dd></div>
+              <div><dt class="text-xs uppercase tracking-widest text-ink/50">Uploads</dt><dd class="mt-1 font-display text-3xl font-bold">0</dd></div>
+            </dl>
+          </div>
+
+          <!-- Hero visual: a product view built from real sign photos -->
+          <div class="relative mx-auto w-full max-w-xl pb-10 lg:pb-14" aria-hidden="true">
+            <div class="overflow-hidden rounded-2xl border border-ink/10 bg-surface shadow-2xl shadow-black/15">
+              <div class="flex items-center gap-2 border-b border-ink/10 bg-sand px-4 py-2.5">
+                <span class="size-2.5 rounded-full bg-ink/15"></span><span class="size-2.5 rounded-full bg-ink/15"></span><span class="size-2.5 rounded-full bg-ink/15"></span>
+                <span class="ml-3 flex-1 rounded-md bg-surface px-3 py-1 text-[11px] font-medium text-ink/50">hastavani / translator</span>
+              </div>
+              <div class="grid grid-cols-[1.25fr_1fr] gap-4 p-4">
+                <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-night">
+                  <img src="/signs/asl/L.jpg" alt="" class="size-full object-cover" />
+                  <div class="absolute inset-[9%] rounded-lg border-2 border-[#3ee0b5]"></div>
+                  <span class="absolute left-[9%] top-[9%] -translate-y-full rounded-t-md bg-[#3ee0b5] px-2 py-0.5 text-[10px] font-bold text-black">HAND</span>
+                  <span class="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur"><span class="size-1.5 rounded-full bg-[#3ee0b5]"></span>Live</span>
+                </div>
+                <div class="flex flex-col justify-between">
+                  <div>
+                    <p class="text-[10px] font-semibold uppercase tracking-widest text-ink/40">Detected letter</p>
+                    <p class="font-display text-8xl font-extrabold leading-none text-brand">L</p>
+                    <div class="mt-3 flex items-center gap-2">
+                      <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-ink/10"><div class="h-full w-[97%] rounded-full bg-brand"></div></div>
+                      <span class="text-[11px] font-semibold tabular-nums">97%</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-[10px] font-semibold uppercase tracking-widest text-ink/40">Word</p>
+                    <p class="mt-1 rounded-lg bg-sand px-3 py-2 font-display text-2xl font-bold tracking-[.25em]">HEL<span class="ml-0.5 inline-block h-5 w-0.5 translate-y-0.5 bg-brand"></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Spelled word, as real sign photos -->
+            <div class="absolute -bottom-2 left-1/2 flex -translate-x-1/2 gap-2 rounded-2xl border border-ink/10 bg-surface p-2 shadow-xl shadow-black/15 sm:gap-2.5 sm:p-2.5">
+              <figure class="relative"><img src="/signs/asl/H.jpg" alt="" class="size-14 rounded-lg object-cover sm:size-16" /><figcaption class="absolute -bottom-1 -right-1 grid size-5 place-items-center rounded-md bg-night text-[10px] font-bold text-white">H</figcaption></figure>
+              <figure class="relative"><img src="/signs/asl/E.jpg" alt="" class="size-14 rounded-lg object-cover sm:size-16" /><figcaption class="absolute -bottom-1 -right-1 grid size-5 place-items-center rounded-md bg-night text-[10px] font-bold text-white">E</figcaption></figure>
+              <figure class="relative"><img src="/signs/asl/L.jpg" alt="" class="size-14 rounded-lg object-cover ring-2 ring-brand sm:size-16" /><figcaption class="absolute -bottom-1 -right-1 grid size-5 place-items-center rounded-md bg-brand-deep text-[10px] font-bold text-white">L</figcaption></figure>
+              <figure class="relative"><img src="/signs/asl/L.jpg" alt="" class="size-14 rounded-lg object-cover opacity-40 sm:size-16" /><figcaption class="absolute -bottom-1 -right-1 grid size-5 place-items-center rounded-md bg-black/40 text-[10px] font-bold text-white">L</figcaption></figure>
+              <figure class="relative"><img src="/signs/asl/O.jpg" alt="" class="size-14 rounded-lg object-cover opacity-40 sm:size-16" /><figcaption class="absolute -bottom-1 -right-1 grid size-5 place-items-center rounded-md bg-black/40 text-[10px] font-bold text-white">O</figcaption></figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Four experiences -->
+      <section class="section">
+        <div class="max-w-2xl reveal">
+          <p class="eyebrow">One app, four ways to sign</p>
+          <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">From a single letter to a whole sentence.</h2>
+          <p class="mt-4 text-ink/70">Pick where you want to start. Every tool switches between ASL and ISL in one click.</p>
+        </div>
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <a href="/translate.html" class="reveal group card flex flex-col transition hover:-translate-y-1 hover:border-brand hover:shadow-lg">
+            <span class="grid size-12 place-items-center rounded-2xl bg-brand-soft font-display text-xl font-extrabold text-brand">Aa</span>
+            <h3 class="mt-5 text-xl font-bold">Translator</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink/70">Fingerspell A–Z. Letters lock in as you sign, build into words and are read aloud.</p>
+            <span class="mt-5 text-sm font-semibold text-brand">Start spelling <span class="inline-block transition group-hover:translate-x-1">→</span></span>
+          </a>
+          <a href="/sentence.html" class="reveal group card flex flex-col transition hover:-translate-y-1 hover:border-brand hover:shadow-lg">
+            <span class="grid size-12 place-items-center rounded-2xl bg-accent-soft text-accent"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"/></svg></span>
+            <h3 class="mt-5 text-xl font-bold">Sentence builder</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink/70">Sign a whole everyday sentence and get it back as text and speech — 101 in ISL, 101 in ASL.</p>
+            <span class="mt-5 text-sm font-semibold text-brand">Sign a sentence <span class="inline-block transition group-hover:translate-x-1">→</span></span>
+          </a>
+          <a href="/math.html" class="reveal group card flex flex-col transition hover:-translate-y-1 hover:border-brand hover:shadow-lg">
+            <span class="grid size-12 place-items-center rounded-2xl bg-brand-soft font-display text-xl font-extrabold text-brand">7</span>
+            <h3 class="mt-5 text-xl font-bold">Math with signs</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink/70">Sign the digits 0–9 into a calculator, or race through a 10-question practice round.</p>
+            <span class="mt-5 text-sm font-semibold text-brand">Do the math <span class="inline-block transition group-hover:translate-x-1">→</span></span>
+          </a>
+          <a href="/learn.html" class="reveal group card flex flex-col transition hover:-translate-y-1 hover:border-brand hover:shadow-lg">
+            <span class="grid size-12 place-items-center rounded-2xl bg-accent-soft text-accent"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 5v16M9 7h6"/></svg></span>
+            <h3 class="mt-5 text-xl font-bold">Learn</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink/70">A picture guide to every letter in both alphabets, with tips for the tricky ones.</p>
+            <span class="mt-5 text-sm font-semibold text-brand">Browse the alphabet <span class="inline-block transition group-hover:translate-x-1">→</span></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Sentence spotlight -->
+      <section class="mx-auto max-w-6xl px-5">
+        <div class="reveal relative grid items-center gap-10 overflow-hidden rounded-[2.5rem] bg-night p-8 text-onnight md:grid-cols-2 md:p-14">
+          <div class="pointer-events-none absolute -left-24 -top-24 size-80 rounded-full bg-brand/30 blur-3xl" aria-hidden="true"></div>
+          <div class="relative">
+            <p class="text-xs font-semibold uppercase tracking-[.18em] text-[#3ee0b5]">Sentence builder</p>
+            <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">Say more than a word.</h2>
+            <p class="mt-4 text-onnight/75">
+              Record yourself signing, press stop, and Hastavāṇī compares your hands, arms and movement against real
+              recordings to find the sentence you meant — showing its top guesses, not just one.
+            </p>
+            <ul class="mt-6 space-y-3 text-sm text-onnight/80">
+              <li class="flex gap-3"><span class="mt-0.5 text-[#3ee0b5]">●</span><span><strong class="text-onnight">It learns you.</strong> Confirm or correct a result and your own recording becomes a reference — the more you teach it, the better it knows your signing.</span></li>
+              <li class="flex gap-3"><span class="mt-0.5 text-[#3ee0b5]">●</span><span><strong class="text-onnight">Watch before you sign.</strong> Every sentence has a short reference clip.</span></li>
+              <li class="flex gap-3"><span class="mt-0.5 text-[#3ee0b5]">●</span><span><strong class="text-onnight">Honest about limits.</strong> It's an early prototype, and <a href="/how-it-works.html#sentences" class="underline">we publish how well it really does</a>.</span></li>
+            </ul>
+            <a href="/sentence.html" class="btn-accent mt-8">Try the sentence builder</a>
+          </div>
+          <!-- mock result card -->
+          <div class="relative mx-auto w-full max-w-sm rounded-3xl bg-surface p-6 text-ink shadow-2xl shadow-black/30" aria-hidden="true">
+            <p class="text-[10px] font-semibold uppercase tracking-widest text-ink/50">Best match</p>
+            <p class="mt-2 font-display text-3xl font-extrabold leading-tight">Hello, how are you?</p>
+            <p class="mt-1 text-xs text-ink/50">ASL gloss: HELLO HOW YOU</p>
+            <div class="mt-4 flex items-center gap-3">
+              <div class="h-2 flex-1 overflow-hidden rounded-full bg-ink/10"><div class="h-full w-[72%] rounded-full bg-brand"></div></div>
+              <span class="text-sm font-semibold tabular-nums">72%</span>
+            </div>
+            <div class="mt-4 space-y-2 text-xs text-ink/60">
+              <div class="flex items-center gap-3"><span class="flex-1">Who are you?</span><div class="h-1.5 w-20 rounded-full bg-ink/10"><div class="h-full w-[14%] rounded-full bg-ink/30"></div></div></div>
+              <div class="flex items-center gap-3"><span class="flex-1">Nice to meet you</span><div class="h-1.5 w-20 rounded-full bg-ink/10"><div class="h-full w-[9%] rounded-full bg-ink/30"></div></div></div>
+            </div>
+            <div class="mt-5 flex items-center gap-2 border-t border-ink/10 pt-4">
+              <span class="rounded-xl border border-ink/15 px-3 py-2 text-xs font-medium">✓ Correct — remember it</span>
+              <span class="text-[11px] text-ink/40">3 of your recordings saved</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why -->
+      <section class="section">
+        <div class="max-w-2xl reveal">
+          <p class="eyebrow">Why Hastavāṇī</p>
+          <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">Built for practice, learning and real conversations.</h2>
+        </div>
+        <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <article class="card reveal">
+            <div class="grid size-11 place-items-center rounded-2xl bg-brand-soft text-brand"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+            <h3 class="mt-5 text-xl font-bold">Instant</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">Letters appear the moment you sign them, with a live confidence meter so you know how sure it is.</p>
+          </article>
+          <article class="card reveal">
+            <div class="grid size-11 place-items-center rounded-2xl bg-accent-soft text-accent"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+            <h3 class="mt-5 text-xl font-bold">Private by design</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">Recognition runs on your device. No video is uploaded, and your history stays in your browser.</p>
+          </article>
+          <article class="card reveal">
+            <div class="grid size-11 place-items-center rounded-2xl bg-brand-soft text-brand"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></div>
+            <h3 class="mt-5 text-xl font-bold">Speaks for you</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">Hear every letter, word, answer and sentence read aloud — or switch the voice off.</p>
+          </article>
+          <article class="card reveal">
+            <div class="grid size-11 place-items-center rounded-2xl bg-accent-soft text-accent"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg></div>
+            <h3 class="mt-5 text-xl font-bold">Two sign languages</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">American (mostly one hand) and Indian (mostly two hands), side by side in every tool.</p>
+          </article>
+          <article class="card reveal">
+            <div class="grid size-11 place-items-center rounded-2xl bg-brand-soft text-brand"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4zM4 21a8 8 0 0 1 16 0"/></svg></div>
+            <h3 class="mt-5 text-xl font-bold">Learns your signing</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">Teach the sentence builder your own style, and calibrate the digit reader to your hand.</p>
+          </article>
+          <article class="card reveal">
+            <div class="grid size-11 place-items-center rounded-2xl bg-accent-soft text-accent"><svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 2"/></svg></div>
+            <h3 class="mt-5 text-xl font-bold">Remembers for you</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">Every word, sentence and sum is saved to your <a href="/history.html" class="underline">history</a> — search it, filter it, or clear it in one tap.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Languages -->
+      <section class="bg-sand">
+        <div class="section">
+          <div class="max-w-2xl reveal">
+            <p class="eyebrow">Pick a language</p>
+            <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">Two languages, one place.</h2>
+          </div>
+          <div class="mt-12 grid gap-6 md:grid-cols-2">
+            <a href="/translate.html" class="reveal group block rounded-[2rem] bg-night p-8 text-onnight transition hover:-translate-y-1">
+              <p class="text-xs font-semibold uppercase tracking-widest text-onnight/50">American Sign Language</p>
+              <p class="mt-3 font-display text-6xl font-extrabold">ASL</p>
+              <p class="mt-4 max-w-sm text-onnight/70">One-handed fingerspelling A–Z, digits 0–9 and 101 everyday sentences built from real signers' word clips.</p>
+              <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent">Try ASL <span class="transition group-hover:translate-x-1">→</span></span>
+            </a>
+            <a href="/translate.html" class="reveal group block rounded-[2rem] bg-brand-deep p-8 text-white transition hover:-translate-y-1">
+              <p class="text-xs font-semibold uppercase tracking-widest text-white/60">Indian Sign Language</p>
+              <p class="mt-3 font-display text-6xl font-extrabold">ISL</p>
+              <p class="mt-4 max-w-sm text-white/80">Mostly two-handed fingerspelling A–Z, digits 0–9 and 101 everyday sentences from native-signer recordings.</p>
+              <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">Try ISL <span class="transition group-hover:translate-x-1">→</span></span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Math teaser -->
+      <section class="section !pb-0">
+        <a href="/math.html" class="reveal group grid items-center gap-8 rounded-[2rem] border border-ink/10 bg-surface p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl md:grid-cols-[1.2fr_1fr] md:p-12">
+          <div>
+            <p class="eyebrow">Math with signs</p>
+            <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">Do maths with your hands.</h2>
+            <p class="mt-4 max-w-lg text-ink/70">
+              Sign the digits 0–9 to a calculator, or take on a 10-question practice round with instant feedback,
+              streaks, confetti and a hint that shows the sign you need.
+            </p>
+            <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand">Try Math with signs <span class="transition group-hover:translate-x-1">→</span></span>
+          </div>
+          <div class="flex items-center justify-center gap-3 font-display text-5xl font-extrabold md:text-6xl" aria-hidden="true">
+            <span class="grid size-20 place-items-center rounded-2xl bg-brand-soft text-brand-dark md:size-24">3</span>
+            <span class="text-accent">+</span>
+            <span class="grid size-20 place-items-center rounded-2xl bg-brand-soft text-brand-dark md:size-24">4</span>
+            <span class="text-ink/40">=</span>
+            <span class="grid size-20 place-items-center rounded-2xl bg-brand text-white md:size-24">7</span>
+          </div>
+        </a>
+      </section>
+
+      <!-- Steps -->
+      <section class="section">
+        <div class="max-w-2xl reveal">
+          <p class="eyebrow">How it works</p>
+          <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">Three steps, no setup.</h2>
+        </div>
+        <ol class="mt-12 grid gap-8 md:grid-cols-3">
+          <li class="reveal"><span class="font-display text-6xl font-extrabold text-brand/25">01</span><h3 class="mt-2 text-xl font-bold">Allow the camera</h3><p class="mt-2 text-ink/70">Your browser asks once. The video is processed right there and never leaves your device.</p></li>
+          <li class="reveal"><span class="font-display text-6xl font-extrabold text-brand/25">02</span><h3 class="mt-2 text-xl font-bold">Sign naturally</h3><p class="mt-2 text-ink/70">21 points on each hand — plus your arms and shoulders for sentences — are tracked many times a second.</p></li>
+          <li class="reveal"><span class="font-display text-6xl font-extrabold text-brand/25">03</span><h3 class="mt-2 text-xl font-bold">Read it, hear it</h3><p class="mt-2 text-ink/70">Letters, numbers and sentences appear on screen, are spoken aloud and saved to your history.</p></li>
+        </ol>
+        <a href="/how-it-works.html" class="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline">See the technology behind it →</a>
+      </section>
+
+      <!-- CTA -->
+      <section class="mx-auto max-w-6xl px-5">
+        <div class="reveal relative overflow-hidden rounded-[2.5rem] bg-night px-8 py-16 text-center text-onnight md:px-16">
+          <div class="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-brand/40 blur-3xl" aria-hidden="true"></div>
+          <h2 class="relative text-4xl font-extrabold md:text-6xl">Your hands have something to say.</h2>
+          <p class="relative mx-auto mt-4 max-w-md text-onnight/70">It takes ten seconds. Open the translator, raise your hand, and watch your first letter appear.</p>
+          <div class="relative mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/translate.html" class="btn-accent">Start translating</a>
+            <a href="/sentence.html" class="btn-ghost !border-onnight/25 !text-onnight hover:!bg-onnight/10">Sign a sentence</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--FOOTER-->
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How it works · Hastavāṇī</title>
+    <meta name="description" content="How Hastavāṇī turns webcam video into letters, numbers and sentences: hand and body landmarks, a small classifier, geometry rules and motion matching." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!--HEADER-->
+
+    <main>
+      <section class="mx-auto max-w-6xl px-5 pb-6 pt-12">
+        <p class="eyebrow">How it works</p>
+        <h1 class="mt-2 max-w-3xl text-4xl font-extrabold md:text-6xl">From a wave of the hand to words on screen.</h1>
+        <p class="mt-5 max-w-2xl text-lg text-ink/70">
+          Three different problems — a letter is a still shape, a number is a count of fingers, a sentence is a
+          movement over time — so Hastavāṇī uses three different techniques. All of them run inside your browser
+          tab; the only downloads are Google's open hand- and body-tracking models, fetched once and cached.
+        </p>
+        <nav class="mt-8 flex flex-wrap gap-2" aria-label="On this page">
+          <a href="#letters" class="rounded-full border border-ink/15 bg-surface px-4 py-2 text-sm font-semibold transition hover:border-brand hover:text-brand">🔤 Letters</a>
+          <a href="#numbers" class="rounded-full border border-ink/15 bg-surface px-4 py-2 text-sm font-semibold transition hover:border-brand hover:text-brand">🔢 Numbers</a>
+          <a href="#sentences" class="rounded-full border border-ink/15 bg-surface px-4 py-2 text-sm font-semibold transition hover:border-brand hover:text-brand">💬 Sentences</a>
+        </nav>
+      </section>
+
+      <section id="letters" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-10">
+        <p class="eyebrow">Letters</p>
+        <h2 class="mt-2 mb-8 text-3xl font-extrabold md:text-4xl">From camera frame to letter, in five small steps.</h2>
+        <ol class="relative space-y-6 border-l-2 border-ink/10 pl-8">
+          <li class="reveal relative">
+            <span class="absolute -left-[2.85rem] grid size-9 place-items-center rounded-full bg-night font-display text-sm font-bold text-onnight">1</span>
+            <h2 class="text-2xl font-bold">Capture</h2>
+            <p class="mt-2 max-w-2xl text-ink/70">Your browser gives the page a live video stream after you allow camera access. Frames are read locally and never stored or sent anywhere.</p>
+          </li>
+          <li class="reveal relative">
+            <span class="absolute -left-[2.85rem] grid size-9 place-items-center rounded-full bg-night font-display text-sm font-bold text-onnight">2</span>
+            <h2 class="text-2xl font-bold">Find the hand</h2>
+            <p class="mt-2 max-w-2xl text-ink/70">MediaPipe Hand Landmarker locates each hand and returns 21 key points per hand: the wrist and the joints of every finger. ASL tracks one hand; ISL tracks up to two.</p>
+          </li>
+          <li class="reveal relative">
+            <span class="absolute -left-[2.85rem] grid size-9 place-items-center rounded-full bg-night font-display text-sm font-bold text-onnight">3</span>
+            <h2 class="text-2xl font-bold">Normalise the shape</h2>
+            <p class="mt-2 max-w-2xl text-ink/70">The points are moved so the hand is centred and scaled to a standard size. That makes recognition independent of where your hand is in the frame or how close it is to the camera.</p>
+          </li>
+          <li class="reveal relative">
+            <span class="absolute -left-[2.85rem] grid size-9 place-items-center rounded-full bg-night font-display text-sm font-bold text-onnight">4</span>
+            <h2 class="text-2xl font-bold">Classify</h2>
+            <p class="mt-2 max-w-2xl text-ink/70">A small neural network (a multilayer perceptron) turns the normalised points into a probability for each of the 26 letters. It is tiny enough to run in plain JavaScript on every frame.</p>
+          </li>
+          <li class="reveal relative">
+            <span class="absolute -left-[2.85rem] grid size-9 place-items-center rounded-full bg-accent font-display text-sm font-bold text-white">5</span>
+            <h2 class="text-2xl font-bold">Smooth and lock in</h2>
+            <p class="mt-2 max-w-2xl text-ink/70">Single noisy frames are ignored. A letter is accepted only when the model is confident and the same answer wins a vote over the last several frames. It is then added to your word and, if speech is on, spoken.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="bg-sand">
+        <div class="section">
+          <div class="max-w-2xl reveal">
+            <p class="eyebrow">Why landmarks?</p>
+            <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">Shape beats pixels.</h2>
+            <p class="mt-4 text-ink/70">
+              An earlier version classified cropped camera images. It worked on its training photos and fell apart on
+              new backgrounds, lighting and skin tones. Reading the hand's skeleton instead removes all of that,
+              so the same sign looks the same to the model wherever you are.
+            </p>
+          </div>
+          <div class="mt-10 grid gap-5 md:grid-cols-3">
+            <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Image model · top-1 · other camera</p><p class="mt-2 font-display text-5xl font-extrabold text-accent">53%</p><p class="mt-2 text-sm text-ink/70">Earlier version. Held-out ASL photos from a different source.</p></div>
+            <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Landmark model · top-1 · other camera</p><p class="mt-2 font-display text-5xl font-extrabold text-brand">82%</p><p class="mt-2 text-sm text-ink/70">Same held-out photos, hand detected. Top-1 is the letter the app shows.</p></div>
+            <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Landmark model · top-3 · other camera</p><p class="mt-2 font-display text-5xl font-extrabold text-brand">93%</p><p class="mt-2 text-sm text-ink/70">The correct letter is among the model's three best guesses (672 photos).</p></div>
+          </div>
+          <p class="mt-6 max-w-2xl text-sm text-ink/60">
+            Numbers are from offline tests on 672 still ASL photos from a source the model never trained on (images where no hand was found are left out). Classification runs live with no image processing, only 21 points per hand. Real webcam accuracy varies with lighting, camera angle and how clearly the sign is held.
+          </p>
+        </div>
+      </section>
+
+      <section id="numbers" class="mx-auto max-w-6xl scroll-mt-24 px-5 pt-20">
+        <div class="grid items-center gap-10 md:grid-cols-[1.3fr_1fr]">
+          <div class="reveal">
+            <p class="eyebrow">Numbers</p>
+            <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">Counting fingers, the clever way.</h2>
+            <p class="mt-4 text-ink/70">
+              Digits don't need a neural network at all. The public digit datasets didn't match the charts this site
+              teaches, so instead of training on the wrong signs, the digit reader works like a person would: it
+              looks at the hand's geometry — <strong>which fingers are extended</strong>, whether the thumb is out or
+              tucked, and <strong>which fingertip the thumb is touching</strong> (that's what separates 6, 7, 8 and 9).
+              The handshapes for most digits are the same in ASL and ISL, so one reader serves both.
+            </p>
+            <p class="mt-3 text-ink/70">
+              Signs a little differently? Record a few samples of your own on the Math page and they're blended
+              with the rules, just for you.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Accuracy</p><p class="mt-2 font-display text-5xl font-extrabold text-brand">97%</p><p class="mt-2 text-sm text-ink/70">on 872 real photos whose signs match the charts.</p></div>
+            <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Model size</p><p class="mt-2 font-display text-5xl font-extrabold text-accent">0</p><p class="mt-2 text-sm text-ink/70">weights to download — just a few geometry rules.</p></div>
+          </div>
+        </div>
+        <p class="mt-6 max-w-2xl text-sm text-ink/60">
+          The thresholds were tuned on the same photos, so real-world accuracy may be a little lower, and 7 and 8
+          couldn't be checked yet because no matching photos were available.
+        </p>
+      </section>
+
+      <section id="sentences" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-20">
+        <div class="max-w-2xl reveal">
+          <p class="eyebrow">Sentences</p>
+          <h2 class="mt-3 text-3xl font-extrabold md:text-4xl">A different problem: motion, not a pose.</h2>
+          <p class="mt-4 text-ink/70">
+            A letter is one hand shape held still. A sentence is a few seconds of hands moving through space — so
+            instead of looking at one frame, the sentence builder compares your whole recording against real
+            recordings of every sentence it knows.
+          </p>
+        </div>
+
+        <ol class="mt-10 grid gap-5 md:grid-cols-3">
+          <li class="card reveal">
+            <span class="grid size-9 place-items-center rounded-full bg-night font-display text-sm font-bold text-onnight">1</span>
+            <h3 class="mt-4 text-lg font-bold">Track hands and body</h3>
+            <p class="mt-2 text-sm text-ink/70">Every frame records each hand's shape, and where your hands, elbows and wrists are relative to your shoulders — so signing near your face and near your chest look different, whatever your camera framing.</p>
+          </li>
+          <li class="card reveal">
+            <span class="grid size-9 place-items-center rounded-full bg-night font-display text-sm font-bold text-onnight">2</span>
+            <h3 class="mt-4 text-lg font-bold">Align the motion</h3>
+            <p class="mt-2 text-sm text-ink/70">The idle start and end (hands resting in your lap) are trimmed off, then <strong>dynamic time warping</strong> lines your movement up with each reference — even if you sign faster or slower than they did.</p>
+          </li>
+          <li class="card reveal">
+            <span class="grid size-9 place-items-center rounded-full bg-accent font-display text-sm font-bold text-white">3</span>
+            <h3 class="mt-4 text-lg font-bold">Pick, and learn you</h3>
+            <p class="mt-2 text-sm text-ink/70">The closest references win and their sentences are shown as ranked guesses. Confirm or correct the result and your own recording joins the references — only in your browser.</p>
+          </li>
+        </ol>
+
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Top-1 · a new signer</p><p class="mt-2 font-display text-5xl font-extrabold text-accent">20%</p><p class="mt-2 text-sm text-ink/70">Exact sentence right for someone it has never seen, out of 101 (chance is about 1%).</p></div>
+          <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Top-3</p><p class="mt-2 font-display text-5xl font-extrabold text-brand">32%</p><p class="mt-2 text-sm text-ink/70">The right sentence is among its three best guesses — which is why it shows several.</p></div>
+          <div class="card reveal"><p class="text-xs font-semibold uppercase tracking-widest text-ink/50">Top-5</p><p class="mt-2 font-display text-5xl font-extrabold text-brand">41%</p><p class="mt-2 text-sm text-ink/70">Measured by matching one group of signers only against a completely different group.</p></div>
+        </div>
+
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          <div class="reveal rounded-3xl bg-sand p-6">
+            <h3 class="font-bold">Why these numbers are modest — and honest</h3>
+            <p class="mt-2 text-sm text-ink/70">
+              The ISL recordings (<a class="underline" href="https://data.mendeley.com/datasets/kcmpdxky7p/1" target="_blank" rel="noopener">ISL-CSLTR</a>)
+              have only about five takes per sentence, and people sign the same sentence very differently: even two
+              signers filmed in the same room on the same phone match each other only about 7% of the time. We report
+              the new-signer number because that's what you experience. A trained neural network was tried first and
+              did worse; matching against real examples copes better with this little data.
+            </p>
+          </div>
+          <div class="reveal rounded-3xl bg-brand-soft p-6">
+            <h3 class="font-bold text-brand-dark">The fix: teach it your signing</h3>
+            <p class="mt-2 text-sm text-ink/70">
+              Your own earlier recording is by far the closest match to how you sign. After each result, press
+              <em>Correct — remember it</em> or pick the right sentence and <em>Save as this</em>. Two or three takes of
+              the sentences you use most make a real difference.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-12 max-w-2xl reveal">
+          <h3 class="text-xl font-bold">ASL sentences: built from real word clips</h3>
+          <p class="mt-3 text-ink/70">
+            No public dataset records fixed ASL sentences several times over, so the 101 ASL sentences are built
+            differently: each is written in ASL word order (for example <em>YOUR NAME WHAT</em>), and its references
+            are chains of real word clips from the <a class="underline" href="https://dxli94.github.io/WLASL/" target="_blank" rel="noopener">WLASL</a>
+            dataset — about six different signers per word — with the pause around each word cut out.
+          </p>
+          <p class="mt-3 text-sm text-ink/60">
+            With signers it had never seen, it picked the right sentence 77% of the time (90% in its top three) — but
+            those tests were also chained word clips. Fluent signing blends words together, so expect less live, sign
+            each word clearly, and treat ASL sentences as an early experiment.
+          </p>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-5 pb-20">
+        <div class="reveal flex flex-col items-start justify-between gap-6 rounded-[2rem] bg-night p-8 text-onnight md:flex-row md:items-center">
+          <h2 class="text-2xl font-bold md:text-3xl">See it in action.</h2>
+          <div class="flex flex-wrap gap-3">
+            <a href="/translate.html" class="btn-accent shrink-0">Open the translator</a>
+            <a href="/sentence.html" class="btn-ghost shrink-0 !border-onnight/25 !text-onnight hover:!bg-onnight/10">Try the sentence builder</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!--FOOTER-->
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

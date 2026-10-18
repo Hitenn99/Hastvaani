@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alphabet guide · Hastavāṇī</title>
+    <meta name="description" content="Browse the ASL and ISL fingerspelling alphabets, letter by letter." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!--HEADER-->
+
+    <main class="mx-auto max-w-6xl px-5 pb-8 pt-12">
+      <p class="eyebrow">Alphabet guide</p>
+      <h1 class="mt-2 text-4xl font-extrabold md:text-6xl">Learn the letters.</h1>
+      <p class="mt-4 max-w-2xl text-lg text-ink/70">
+        Every word starts with a letter. Pick a language, tap any sign for a close-up and a tip, copy the hand
+        shape — then open the <a href="/translate.html" class="font-semibold text-brand hover:underline">translator</a>
+        and see if it reads you right.
+      </p>
+      <p class="mt-3 max-w-2xl text-sm text-ink/60">
+        Looking for more? The digit charts live on the <a href="/math.html" class="underline">Math page</a>, and every
+        sentence in the <a href="/sentence.html" class="underline">sentence builder</a> has its own reference clip.
+      </p>
+
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="inline-flex self-start rounded-full border border-ink/15 bg-surface p-1 shadow-sm" role="tablist" aria-label="Language">
+          <button id="tab-asl" class="mode-btn" role="tab" aria-selected="true">ASL · American</button>
+          <button id="tab-isl" class="mode-btn" role="tab" aria-selected="false">ISL · Indian</button>
+        </div>
+        <label class="relative block sm:w-64">
+          <span class="sr-only">Find a letter</span>
+          <input id="letter-search" type="text" maxlength="1" placeholder="Find a letter…" autocomplete="off"
+                 class="w-full rounded-full border border-ink/15 bg-surface px-5 py-2.5 text-sm uppercase placeholder:normal-case placeholder:text-ink/40 focus:border-brand focus:outline-none" />
+        </label>
+      </div>
+
+      <p id="lang-note" class="mt-6 max-w-3xl rounded-2xl bg-sand px-5 py-4 text-sm leading-relaxed text-ink/70"></p>
+
+      <div id="alphabet-grid" class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"></div>
+      <p id="no-results" class="hidden py-16 text-center text-ink/50">No letter matches your search.</p>
+
+      <p class="mt-6 text-xs leading-relaxed text-ink/50">
+        Photos are examples from the public datasets the recognizer was trained on and are meant as a visual guide.
+        ASL photos vary in angle and quality, so if a sign looks unclear, compare it with an official chart.
+      </p>
+
+      <div class="mt-16 flex flex-col items-start justify-between gap-6 rounded-[2rem] bg-night p-8 text-onnight md:flex-row md:items-center">
+        <div>
+          <h2 class="text-2xl font-bold md:text-3xl">Practise with the camera</h2>
+          <p class="mt-2 text-onnight/70">See instantly whether your sign is read correctly.</p>
+        </div>
+        <a href="/translate.html" class="btn-accent shrink-0">Open the translator</a>
+      </div>
+    </main>
+
+    <dialog id="letter-dialog" class="m-auto w-[min(92vw,26rem)] rounded-[2rem] border-0 bg-paper p-0 shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm">
+      <img id="dialog-img" src="" alt="" class="aspect-square w-full bg-ink/5 object-cover" />
+      <div class="p-8">
+        <div class="flex items-start justify-between">
+          <span id="dialog-letter" class="font-display text-7xl font-extrabold leading-none text-brand"></span>
+          <button id="dialog-close" class="grid size-10 place-items-center rounded-full border border-ink/15 hover:bg-ink/5" aria-label="Close">
+            <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <p id="dialog-hands" class="mt-4 text-xs font-semibold uppercase tracking-widest text-ink/50"></p>
+        <p id="dialog-tip" class="mt-3 text-lg leading-relaxed"></p>
+        <a href="/translate.html" class="btn-primary mt-8 w-full">Practise this letter</a>
+      </div>
+    </dialog>
+
+    <!--FOOTER-->
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>
